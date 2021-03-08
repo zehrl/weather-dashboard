@@ -40,14 +40,14 @@
 
                     <!-- Search Bar -->
                     <form>
-                        <div class="form-group row">
+                        <div class="form-group form-row">
                             <div class="col-8">
                                 <input type="text" class="form-control" id="city-input" placeholder="Ex. Seattle">
 
                             </div>
                             <div class="col pl-0">
-                                <button type="submit" class="btn btn-primary" style="width: 100%">Search</button>
 
+                                <button type="submit" class="btn btn-primary" style="width: 100%">Search</button>
                             </div>
                         </div>
                     </form>
@@ -55,18 +55,6 @@
                     <!-- Saved Cities -->
                     <div class="list-group">
                         <a href="#" class="list-group-item list-group-item-action active">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">CITY-NAME, STATE-NAME</h5>
-                                <small>3 days ago</small>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">CITY-NAME, STATE-NAME</h5>
-                                <small>3 days ago</small>
-                            </div>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">CITY-NAME, STATE-NAME</h5>
                                 <small>3 days ago</small>
@@ -87,6 +75,7 @@
 
                     <div class="card" style="height: 100%">
                         <div class="card-body">
+                            <h1 class="text-center">Today's Forecast</h1>
                             <h5 class="card-title">CITY-NAME</h5>
                             <h6 class="card-subtitle mb-2 text-muted">DATE</h6>
 
@@ -126,10 +115,169 @@
 
                 </div>
             </div>
-            
+
+            <hr class="my-4">
+            </hr>
+
             <!-- ROW -->
-            
-            <!-- 5-Day Forecast -->
+            <div class="row">
+
+                <div class="col mb-3">
+
+                    <!-- 5-Day Forecast -->
+
+                    <h1 class="text-center">5-Day Forecast</h1>
+
+
+                    <div class="d-flex flex-row flex-wrap justify-content-around">
+
+                        <!-- 1st-Day -->
+                        <div class="flex-column">
+                            <div class="card five-day-card my-3">
+                                <img src="http://openweathermap.org/img/wn/10d@2x.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">DATE-DATA</h5>
+                                    <p class="card-text">
+                                        <b>
+                                            Temperature:
+                                        </b>
+                                        TEMPERATURE-DATA
+                                    </p>
+                                    <p class="card-text">
+                                        <b>
+                                            Humidity:
+                                        </b>
+                                        HUMIDITY-DATA
+                                    </p>
+                                    <p class="card-text">
+                                        <b>
+                                            Chance of Rain:
+                                        </b>
+                                        CHANCE-OF-RAIN-DATA
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2nd-Day -->
+                        <div class="flex-column">
+                            <div class="card five-day-card my-3">
+                                <img src="http://openweathermap.org/img/wn/10d@2x.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">DATE-DATA</h5>
+                                    <p class="card-text">
+                                        <b>
+                                            Temperature:
+                                        </b>
+                                        TEMPERATURE-DATA
+                                    </p>
+                                    <p class="card-text">
+                                        <b>
+                                            Humidity:
+                                        </b>
+                                        HUMIDITY-DATA
+                                    </p>
+                                    <p class="card-text">
+                                        <b>
+                                            Chance of Rain:
+                                        </b>
+                                        CHANCE-OF-RAIN-DATA
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3rd-Day -->
+                        <div class="flex-column">
+                            <div class="card five-day-card my-3">
+                                <img src="http://openweathermap.org/img/wn/10d@2x.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">DATE-DATA</h5>
+                                    <p class="card-text">
+                                        <b>
+                                            Temperature:
+                                        </b>
+                                        TEMPERATURE-DATA
+                                    </p>
+                                    <p class="card-text">
+                                        <b>
+                                            Humidity:
+                                        </b>
+                                        HUMIDITY-DATA
+                                    </p>
+                                    <p class="card-text">
+                                        <b>
+                                            Chance of Rain:
+                                        </b>
+                                        CHANCE-OF-RAIN-DATA
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4th-Day -->
+                        <div class="flex-column">
+                            <div class="card five-day-card my-3">
+                                <img src="http://openweathermap.org/img/wn/10d@2x.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">DATE-DATA</h5>
+                                    <p class="card-text">
+                                        <b>
+                                            Temperature:
+                                        </b>
+                                        TEMPERATURE-DATA
+                                    </p>
+                                    <p class="card-text">
+                                        <b>
+                                            Humidity:
+                                        </b>
+                                        HUMIDITY-DATA
+                                    </p>
+                                    <p class="card-text">
+                                        <b>
+                                            Chance of Rain:
+                                        </b>
+                                        CHANCE-OF-RAIN-DATA
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5th-Day -->
+                        <div class="flex-column">
+                            <div class="card five-day-card my-3">
+                                <img src="http://openweathermap.org/img/wn/10d@2x.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">DATE-DATA</h5>
+                                    <p class="card-text">
+                                        <b>
+                                            Temperature:
+                                        </b>
+                                        TEMPERATURE-DATA
+                                    </p>
+                                    <p class="card-text">
+                                        <b>
+                                            Humidity:
+                                        </b>
+                                        HUMIDITY-DATA
+                                    </p>
+                                    <p class="card-text">
+                                        <b>
+                                            Chance of Rain:
+                                        </b>
+                                        CHANCE-OF-RAIN-DATA
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
 
 
         </div>
