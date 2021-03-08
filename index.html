@@ -36,7 +36,7 @@
             <!-- ROW -->
             <div class="row">
                 <!-- COLUMN -->
-                <div class="col-md-6">
+                <div class="col-lg-5">
 
                     <!-- Search Bar -->
                     <form>
@@ -45,17 +45,60 @@
                                 <input type="text" class="form-control" id="city-input" placeholder="Ex. Seattle">
 
                             </div>
+                            <div class="col pl-0">
+                                <button type="submit" class="btn btn-primary" style="width: 100%">Search</button>
 
-                            <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
                         </div>
                     </form>
 
                     <!-- Saved Cities -->
                 </div>
                 <!-- COLUMN -->
-                <div class="col-md">
+                <div class="col-lg">
                     <!-- Today's Forecast -->
-                    Today's Forecast
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">CITY-NAME</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">DATE</h6>
+                            
+                            <!-- Temperature -->
+                            <p class="card-text">
+                                <b>
+                                    Temperature:
+                                </b>
+                                <span>TEMPERATURE-DATA</span>
+                            </p>
+
+                            <!-- Humidity -->
+                            <p class="card-text">
+                                <b>
+                                    Humidity:
+                                </b>
+                                <span>HUMIDITY-DATA</span>
+                            </p>
+
+                            <!-- Wind Speed -->
+                            <p class="card-text">
+                                <b>
+                                    Wind Speed:
+                                </b>
+                                <span>WIND-SPEED-DATA</span>
+                            </p>
+
+                            <!-- UV Index -->
+                            <p class="card-text">
+                                <b>
+                                    UV Index:
+                                </b>
+                                <span>UV-INDEX-DATA</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!--  -->
+
                     <!-- 5-Day Forecast -->
                 </div>
             </div>
