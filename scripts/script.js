@@ -22,7 +22,6 @@ $(function () {
             url: url,
             type: "get"
         }).done(function (response) {
-            console.log(`Coordinate Response: `, response)
             coordinates = {
                 lat: response[0].lat,
                 lon: response[0].lon
@@ -32,35 +31,32 @@ $(function () {
         return coordinates;
     }
 
+    
+
+    const getWeather = async (lat, lon) => {
+
+        const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial&exclude=hourly,minutely`
+        let weather;
+
+        await $.ajax({
+            url: url,
+            type: "get"
+        }).done(function (response) {
+            weather = response;
+        });
+
+        return weather
+    }
+
     const getData = async() => {
         let coordinates = await getCoordinates("Fort Wayne");
-        // let weather = await getWeather();
         console.log("Await coordinates: ", coordinates);
+        let weather = await getWeather(coordinates.lat, coordinates.lon);
+        console.log("Await weather: ", weather);
+
+        return weather;
     }
 
     getData();
-
-    // const getWeather = async (lat, lon) => {
-
-    //     // UV Index
-    //     const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`
-
-    //     console.log("getting weather...")
-
-    //     // await $.ajax({
-    //     //     url: url,
-    //     //     type: "get"
-    //     // }).done(function (response) {
-    //     //     // Current UV Index
-
-    //     //     console.log('Weather Response: ', response)
-    //     //     console.log(`Current UV Index = ${response.value}`)
-
-    //     //     // console.log(response)
-    //     // });
-
-    //     setTimeout(()=>{return "test"}, 5000)
-
-    // }
 
 })
