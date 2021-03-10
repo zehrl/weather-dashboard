@@ -107,7 +107,7 @@ $(function () {
 
             // Icon
             const iconCode = weatherAr[dayIndex-1].weather[0].icon;
-            const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+            const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@4x.png`
 
             // Temperature - reound to nearest degree
             const temp = Math.round(parseInt(weatherAr[dayIndex - 1].temp.day)).toString();
