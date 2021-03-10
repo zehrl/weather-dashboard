@@ -105,16 +105,21 @@ $(function () {
             const [month, day, year] = date.toLocaleDateString("en-US").split("/");
             dateFormatted = `${month}/${day}/${year}`
 
-            // Round temperature to nearest degree
+            // Icon
+            const iconCode = weatherAr[dayIndex-1].weather[0].icon;
+            const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@2x.png`
+
+            // Temperature - reound to nearest degree
             const temp = Math.round(parseInt(weatherAr[dayIndex - 1].temp.day)).toString();
 
             // Humidity
             const humidity = weatherAr[dayIndex - 1].humidity
 
             // Update card info
-            $($cardDataAr[0]).text(dateFormatted);
-            $($cardDataAr[1]).text(`${temp}°F`);
-            $($cardDataAr[2]).text(`${humidity}%`);
+            $($cardDataAr[0]).attr('src', iconUrl);
+            $($cardDataAr[1]).text(dateFormatted);
+            $($cardDataAr[2]).text(`${temp}°F`);
+            $($cardDataAr[3]).text(`${humidity}%`);
 
             dayIndex++;
         });
