@@ -19,6 +19,8 @@ $(function () {
 
     // 5-day forecast card children
     const $fiveDayForecastCards = $(".five-day-card")
+    // const $fiveDayForecastContainer = $("#five-day-forecast-container")
+    console.log("5-day forecast card elements: ", $fiveDayForecastCards);
 
     // apiKey
     const apiKey = "e452aa651bd80481f1b2311b6f81f11d"
@@ -93,6 +95,8 @@ $(function () {
         } else {
             console.log("No search history found.")
         }
+
+        // Change 5-day forecast cards
 
     }
 
