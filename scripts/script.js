@@ -61,7 +61,7 @@ $(function () {
     }
 
     // Handle form submit
-    const handleFormSubmit = (event) => {
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
 
         console.log("Form submitted!");
@@ -71,17 +71,32 @@ $(function () {
         console.log("city input: ", cityInput);
 
         // Get data
+        const { weather: { current }, location } = await getData(cityInput);
 
         // Add to search history
         let searchHistory;
 
         searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+
         console.log("searchHistory before: ", searchHistory)
-        searchHistory.push(cityInput);
+        searchHistory.push({ city: location.city, state: location.state });
+
         console.log("searchHistory after: ", searchHistory)
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 
+        // Render Forecast
+        renderTodaysForecast(
+            location.city,
+            location.state,
+            current.temp,
+            current.humidity,
+            current.wind_speed,
+            current.uvi
+        );
+
         // Render search history
+
+
         // Render 5-day forecast
     }
 
@@ -99,14 +114,14 @@ $(function () {
         $fiveDayForecastCards.each(function (index) {
 
             $cardDataAr = $(this).find(".data");
-            
+
             // Date
             date.setDate(currentDate.getDate() + dayIndex);
             const [month, day, year] = date.toLocaleDateString("en-US").split("/");
             dateFormatted = `${month}/${day}/${year}`
 
             // Icon
-            const iconCode = weatherAr[dayIndex-1].weather[0].icon;
+            const iconCode = weatherAr[dayIndex - 1].weather[0].icon;
             const iconUrl = `http://openweathermap.org/img/wn/${iconCode}@4x.png`
 
             // Temperature - reound to nearest degree
@@ -128,6 +143,7 @@ $(function () {
 
     // Render search history
     const renderSearchHistory = () => {
+
         const searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 
         if (searchHistory) {
@@ -136,7 +152,6 @@ $(function () {
             console.log("No search history found.")
         }
 
-        // Change 5-day forecast cards
 
     }
 
@@ -223,11 +238,23 @@ $(function () {
         return { weather, location };
     }
 
-    // ----- Listeners -----
-    $searchForm.submit((event) => handleFormSubmit(event))
-    console.log($searchForm);
+    const getSearchHistoryCard = (cityName, stateName) => {
 
-    // ----- Initialize -----
-    handleInit();
+
+        return (
+            $.parseHTML(`<a href="#" class="list-group-item list-group-item-action active">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">${cityName}, ${stateName}</h5>
+                </div>
+            </a>`)
+        )
+    }
+
+// ----- Listeners -----
+$searchForm.submit((event) => handleFormSubmit(event))
+console.log($searchForm);
+
+// ----- Initialize -----
+handleInit();
 
 })
