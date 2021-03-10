@@ -70,6 +70,9 @@ $(function () {
         const cityInput = $cityInput.val().trim();
         console.log("city input: ", cityInput);
 
+        // Clear Search Input
+        $cityInput.val("");
+
         // Get data
         const { weather: { current }, location } = await getData(cityInput);
 
@@ -98,6 +101,8 @@ $(function () {
 
 
         // Render 5-day forecast
+
+        
     }
 
     // Render 5-day forecast
