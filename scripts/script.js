@@ -1,8 +1,13 @@
 $(function () {
 
-    // Element Inits
-    // search input
+    // ----- Element Inits -----
+
+    // search form
+    const $searchForm = $("#search-form");
+    const $cityInput = $("#city-input");
+
     // search history list items
+
 
     // today's forecast
     const $todayCityName = $("#todayCityName"); // City Name span
@@ -20,25 +25,61 @@ $(function () {
 
     // Handle initial loading of data
     const handleInit = async () => {
+
+        // Auto load Seattle weather
         const data = await getData("Seattle");
         console.log("handleInit data: ", data);
+
+        // Initialize search history if there isn't any
+        if (!JSON.parse(localStorage.getItem('searchHistory'))) {
+            localStorage.setItem('searchHistory', "[]");
+        }
 
         // Render search history
         renderSearchHistory();
 
         // Render today's forecast
-        renderTodaysForecast("Fort Wayne", "IN", 34, 35, 3, 4);
+        const { weather: { current } } = data;
+        const { location } = data;
+
+        renderTodaysForecast(
+            location.city,
+            location.state,
+            current.temp,
+            current.humidity,
+            current.wind_speed,
+            current.uvi
+        );
 
         // Render 5-day forecast
 
 
     }
-    
+
     // Handle form submit
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+
+        console.log("Form submitted!");
+
         // Pull data from search value
+        const cityInput = $cityInput.val().trim();
+        console.log("city input: ", cityInput);
+
         // Get data
+
+        // Add to search history
+        let searchHistory;
+
+        searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+        console.log("searchHistory before: ", searchHistory)
+        searchHistory.push(cityInput);
+        console.log("searchHistory after: ", searchHistory)
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+
         // Render search history
         // Render 5-day forecast
+    }
 
     // Render 5-day forecast
 
@@ -90,18 +131,25 @@ $(function () {
 
         const url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`
         let coordinates = { lat: "N/A", lon: "N/A" };
+        let location = { city: "N/A", state: "N/A" };
 
+        console.log("Fetching coordinates and location data...")
         await $.ajax({
             url: url,
             type: "get"
         }).done(function (response) {
+            console.log("getCoordinates: ", response)
             coordinates = {
                 lat: response[0].lat,
                 lon: response[0].lon
             }
+            location = {
+                city: response[0].name,
+                state: response[0].state
+            }
         });
 
-        return coordinates;
+        return { coordinates, location };
     }
 
 
@@ -122,14 +170,20 @@ $(function () {
     }
 
     const getData = async (cityName) => {
-        let coordinates = await getCoordinates(cityName);
+        let { coordinates, location } = await getCoordinates(cityName);
         console.log("Await coordinates: ", coordinates);
+
         let weather = await getWeather(coordinates.lat, coordinates.lon);
         console.log("Await weather: ", weather);
 
-        return weather;
+        return { weather, location };
     }
 
+    // ----- Listeners -----
+    $searchForm.submit((event) => handleFormSubmit(event))
+    console.log($searchForm);
+
+    // ----- Initialize -----
     handleInit();
 
 })
