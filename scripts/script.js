@@ -1,9 +1,9 @@
 $(function () {
-    
+
     // Element Inits
     // search input
     // search history list items
-    
+
     // today's forecast
     const $todayCityName = $("#todayCityName"); // City Name span
     const $todayDate = $("#todayDate"); // Today Date
@@ -12,12 +12,10 @@ $(function () {
     const $todayWindSpeed = $("#todayWindSpeed"); // Wind Speed span
     const $todayUVIndex = $("#todayUVIndex"); // UV Index span
 
-
-    // today's forecast - wind speed span
-    // today's forecast - uv index span
     // 5-day forecast card children
+    const $fiveDayForecastCards = $(".five-day-card")
 
-    
+    // apiKey
     const apiKey = "e452aa651bd80481f1b2311b6f81f11d"
 
     // Handle initial loading of data
@@ -26,16 +24,36 @@ $(function () {
         console.log("handleInit data: ", data);
 
         // Render search history
+        renderSearchHistory();
+
         // Render today's forecast
         renderTodaysForecast("Fort Wayne", "IN", 34, 35, 3, 4);
 
         // Render 5-day forecast
-    }
 
+
+    }
+    
     // Handle form submit
+        // Pull data from search value
+        // Get data
+        // Render search history
+        // Render 5-day forecast
+
+    // Render 5-day forecast
+
 
     // Render search history
+    const renderSearchHistory = () => {
+        const searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 
+        if (searchHistory) {
+            console.log("searchHistory: ", searchHistory);
+        } else {
+            console.log("No search history found.")
+        }
+
+    }
 
     // Render today's forecast
     const renderTodaysForecast = (cityName, stateName, temp, humidity, windSpeed, uVIndex) => {
@@ -59,6 +77,10 @@ $(function () {
 
         // update uv index
         $todayUVIndex.text(uVIndex);
+
+        // update icon
+        // URL: https://openweathermap.org/weather-conditions#How-to-get-icon-URL
+
     }
 
     // Render 5-day forecast
