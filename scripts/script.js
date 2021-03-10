@@ -20,7 +20,7 @@ $(function () {
     // 5-day forecast card children
     const $fiveDayForecastCards = $(".five-day-card")
     // const $fiveDayForecastContainer = $("#five-day-forecast-container")
-    console.log("5-day forecast card elements: ", $fiveDayForecastCards);
+    console.log("$fiveDayForecastCards: ", $fiveDayForecastCards[0], typeof ($fiveDayForecastCards));
 
     // apiKey
     const apiKey = "e452aa651bd80481f1b2311b6f81f11d"
@@ -54,6 +54,8 @@ $(function () {
         );
 
         // Render 5-day forecast
+        const { weather: { daily } } = data;
+        renderFiveDayForecast(daily);
 
 
     }
@@ -84,7 +86,40 @@ $(function () {
     }
 
     // Render 5-day forecast
+    const renderFiveDayForecast = (weatherAr) => {
 
+        // Current date
+        let currentDate = new Date();
+
+        // Loop over each card and add data
+        let dayIndex = 1;
+        let date = new Date();
+        let card;
+
+        $fiveDayForecastCards.each(function (index) {
+
+            $cardDataAr = $(this).find(".data");
+            
+            // Date
+            date.setDate(currentDate.getDate() + dayIndex);
+            const [month, day, year] = date.toLocaleDateString("en-US").split("/");
+            dateFormatted = `${month}/${day}/${year}`
+
+            // Round temperature to nearest degree
+            const temp = Math.round(parseInt(weatherAr[dayIndex - 1].temp.day)).toString();
+
+            // Humidity
+            const humidity = weatherAr[dayIndex - 1].humidity
+
+            // Update card info
+            $($cardDataAr[0]).text(dateFormatted);
+            $($cardDataAr[1]).text(`${temp}°F`);
+            $($cardDataAr[2]).text(`${humidity}%`);
+
+            dayIndex++;
+        });
+
+    }
 
     // Render search history
     const renderSearchHistory = () => {
