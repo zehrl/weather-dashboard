@@ -43,7 +43,8 @@ $(function () {
 
         renderTodaysForecast(
             location.city,
-            location.state || location.country,
+            location.state,
+            location.country,
             current.temp,
             current.humidity,
             current.wind_speed,
@@ -168,12 +169,12 @@ $(function () {
     }
 
     // Render today's forecast
-    const renderTodaysForecast = (cityName, stateOrCountryName, temp, humidity, windSpeed, uVIndex) => {
+    const renderTodaysForecast = (cityName, stateName, countryName, temp, humidity, windSpeed, uVIndex) => {
         let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
         let currentDate = `${month}/${date}/${year}`
 
         // update city name
-        $todayCityName.text(`${cityName}, ${stateOrCountryName}`);
+        $todayCityName.text(`${cityName}, ${stateName || countryName}`);
 
         // update date
         $todayDate.text(currentDate);
@@ -302,8 +303,8 @@ $(function () {
             locationSearch += `, ${countryName}`
         }
 
-        console.log("stateName: ", stateName);
-        console.log("countryName: ", countryName)
+        console.log("getSearchHistoryCard, stateName: ", stateName);
+        console.log("getSearchHistoryCard, countryName: ", countryName)
 
         console.log(`$.{stateName || countryName}: ${stateName || countryName}`)
         return (
