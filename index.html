@@ -21,17 +21,17 @@
     <header>
         <div class="jumbotron jumbotron-fluid gradient m-0">
             <div class="container text-center">
-                <h1 class="display-4">The Weather Dashboard</h1>
+                <h1 id="website-title" class="serif display-4">The Weather Dashboard</h1>
                 <p class="lead">Let's see what the weather's like this week.
                 </p>
             </div>
         </div>
     </header>
 
-    <main>
+    <main class="pt-4">
 
         <!-- MAIN CONTENT CONTAINER -->
-        <div class="container mt-4">
+        <div class="container">
 
             <!-- ROW -->
             <div class="row">
@@ -53,14 +53,21 @@
                     </form>
 
                     <!-- Search History -->
-                    <div class="list-group" id="search-history-container"></div>
+                    <div class="list-group box-shadow">
+                        <div class="card-header">
+                            <h5 class="text-center m-0">Search History</h5>
+                        </div>
+                        <div id="search-history-container">
+
+                        </div>
+                    </div>
 
                 </div>
                 <!-- COLUMN -->
                 <div class="col-lg mb-3">
                     <!-- Today's Forecast -->
 
-                    <div class="card" style="height: 100%">
+                    <div class="card box-shadow" style="height: 100%">
                         <div class="card-body">
                             <h1 class="text-center">Today's Forecast</h1>
                             <h5 id="todayCityName" class="card-title">CITY-NAME</h5>
@@ -120,7 +127,7 @@
 
                         <!-- 1st-Day -->
                         <div class="flex-column">
-                            <div class="card five-day-card my-3">
+                            <div class="card five-day-card box-shadow my-3">
                                 <img src="http://openweathermap.org/img/wn/10d@2x.png" class="card-img-top data"
                                     alt="Weather Icon">
                                 <div class="card-body">
@@ -143,7 +150,7 @@
 
                         <!-- 2nd-Day -->
                         <div class="flex-column">
-                            <div class="card five-day-card my-3">
+                            <div class="card five-day-card box-shadow my-3">
                                 <img src="http://openweathermap.org/img/wn/10d@2x.png" class="card-img-top data"
                                     alt="Weather Icon">
                                 <div class="card-body">
@@ -166,7 +173,7 @@
 
                         <!-- 3rd-Day -->
                         <div class="flex-column">
-                            <div class="card five-day-card my-3">
+                            <div class="card five-day-card box-shadow my-3">
                                 <img src="http://openweathermap.org/img/wn/10d@2x.png" class="card-img-top data"
                                     alt="Weather Icon">
                                 <div class="card-body">
@@ -189,7 +196,7 @@
 
                         <!-- 4th-Day -->
                         <div class="flex-column">
-                            <div class="card five-day-card my-3">
+                            <div class="card five-day-card box-shadow my-3">
                                 <img src="http://openweathermap.org/img/wn/10d@2x.png" class="card-img-top data"
                                     alt="Weather Icon">
                                 <div class="card-body">
@@ -212,7 +219,7 @@
 
                         <!-- 5th-Day -->
                         <div class="flex-column">
-                            <div class="card five-day-card my-3">
+                            <div class="card five-day-card box-shadow my-3">
                                 <img src="http://openweathermap.org/img/wn/10d@2x.png" class="card-img-top data"
                                     alt="Weather Icon">
                                 <div class="card-body">
