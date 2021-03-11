@@ -19,8 +19,6 @@ $(function () {
 
     // 5-day forecast card children
     const $fiveDayForecastCards = $(".five-day-card")
-    // const $fiveDayForecastContainer = $("#five-day-forecast-container")
-    console.log("$fiveDayForecastCards: ", $fiveDayForecastCards[0], typeof ($fiveDayForecastCards));
 
     // apiKey
     const apiKey = "e452aa651bd80481f1b2311b6f81f11d"
@@ -80,9 +78,14 @@ $(function () {
         let searchHistory;
 
         searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+        
+        // Filter any duplicates
+        searchHistory = searchHistory.filter(entry => {
+            return (entry.city !== location.city || entry.state !== location.state)
+        })
 
         console.log("searchHistory before: ", searchHistory)
-        searchHistory.push({ city: location.city, state: location.state });
+        searchHistory.unshift({ city: location.city, state: location.state });
 
         console.log("searchHistory after: ", searchHistory)
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
@@ -152,30 +155,19 @@ $(function () {
 
         const searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 
+        // Clear out search history container to prevent duplicates
         $searchHistoryContainer.empty();
 
         if (searchHistory.length > 0) {
-            console.log("searchHistory: ", searchHistory);
-
             let $cards = $();
 
             searchHistory.forEach(search => {
                 console.log("Card: ", getSearchHistoryCard(search.city, search.state))
                 $searchHistoryContainer.append(getSearchHistoryCard(search.city, search.state));
-
-                // $cards.push(getSearchHistoryCard(search.city, search.state))
             });
-
-            // $searchHistoryContainer.append($cards);
-
-            console.log("cards: ", $cards);
-            console.log("cards container: ", $searchHistoryContainer)
-
         } else {
             console.log("No search history found.")
         }
-
-
     }
 
     // Render today's forecast
@@ -206,6 +198,8 @@ $(function () {
 
     }
 
+    // ----- API Calls & handling -----
+
     const getCoordinates = async (cityName) => {
 
         const url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`
@@ -230,8 +224,6 @@ $(function () {
 
         return { coordinates, location };
     }
-
-
 
     const getWeather = async (lat, lon) => {
 
@@ -281,7 +273,7 @@ $(function () {
         $cityInput.val(city);
         console.log("City clicked: ", city);
 
-        // Call handleSubmit to read input and research
+        // Call handleSubmit to read input and re-search
         $searchForm.submit();
 
     })
