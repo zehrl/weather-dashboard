@@ -1,33 +1,51 @@
-# weather-dashboard
-Provides the weather outlook for multiple cities.
-## User Story
 
-```
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
-```
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-## Acceptance Criteria
+# The Weather Dashboard
 
-```
-GIVEN a weather dashboard with form inputs
+Repo: https://github.com/zehrl/weather-dashboard
 
-WHEN I search for a city
-THEN I am presented with current and future conditions for that city and that city is added to the search history
+Website: https://zehrl.github.io/weather-dashboard/ 
 
-WHEN I view current weather conditions for that city
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
+---
 
-WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
+## Table of Contents
+* [Description](#Description)
+* [Instructions](#Instructions)
+* [Questions](#Questions)
+* [License](#License)
 
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
+---
 
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
+## Description
 
-WHEN I open the weather dashboard
-THEN I am presented with the last searched city forecast
-```
+The Weather Dashboard is a static site that utilizes the Open Weather API to pull weather data for a given city. The user can search and view a forecast for the current day and 5-days in the future. A search history, utilizing local storage, is visible under the search bar & updated each time the user successfully searches a city.
+
+---
+
+## Instructions
+
+1. Begin by entering a city name into the search bar. You must add the country next to the city if it's outside of the US (Ex. Rome, IT)
+2. Submit the search and wait for the content to load.
+3. All data displays on the cards. The UV Index will update colors based on the severity for the day. (green = < 3, yellow = < 6, orange = < 8, red = < 11, purple = > 11)
+
+![Picture of the weather dashboard website](images/website.png)
+
+---
+
+## Questions
+
+* My github: https://github.com/zehrl
+* Email me at zehrl315@outlook.com if you have any questions.
+
+---
+
+## License
+
+© 2021 Logan J. Zehr
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
