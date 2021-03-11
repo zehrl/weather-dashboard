@@ -43,7 +43,7 @@ $(function () {
 
         renderTodaysForecast(
             location.city,
-            location.state,
+            location.state || location.country,
             current.temp,
             current.humidity,
             current.wind_speed,
@@ -77,10 +77,13 @@ $(function () {
 
         // Filter any duplicates
         searchHistory = searchHistory.filter(entry => {
-            return (entry.city !== location.city || entry.state !== location.state)
+            return (
+                (entry.city !== location.city) ||
+                (entry.state !== location.state && entry.country !== location.country)
+            )
         })
 
-        searchHistory.unshift({ city: location.city, state: location.state });
+        searchHistory.unshift({ city: location.city || null, state: location.state || null, country: location.country || null });
 
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 
@@ -88,6 +91,7 @@ $(function () {
         renderTodaysForecast(
             location.city,
             location.state,
+            location.country,
             current.temp,
             current.humidity,
             current.wind_speed,
@@ -156,7 +160,7 @@ $(function () {
             let $cards = $();
 
             searchHistory.forEach(search => {
-                $searchHistoryContainer.append(getSearchHistoryCard(search.city, search.state));
+                $searchHistoryContainer.append(getSearchHistoryCard(search.city, search.state, search.country));
             });
         } else {
             console.log("No search history found.")
@@ -164,12 +168,12 @@ $(function () {
     }
 
     // Render today's forecast
-    const renderTodaysForecast = (cityName, stateName, temp, humidity, windSpeed, uVIndex) => {
+    const renderTodaysForecast = (cityName, stateOrCountryName, temp, humidity, windSpeed, uVIndex) => {
         let [month, date, year] = new Date().toLocaleDateString("en-US").split("/");
         let currentDate = `${month}/${date}/${year}`
 
         // update city name
-        $todayCityName.text(`${cityName}, ${stateName}`);
+        $todayCityName.text(`${cityName}, ${stateOrCountryName}`);
 
         // update date
         $todayDate.text(currentDate);
@@ -188,8 +192,16 @@ $(function () {
 
         // Determine UV Index severity and change background accordingly
         $todayUVIndex.css('color', 'white');
-        
+
+        console.log("uVIndex: ", uVIndex)
         switch (true) {
+            case (uVIndex === 0):
+                $todayUVIndex.css('background-color', 'white');
+                $todayUVIndex.css('color', 'black');
+                $todayUVIndex.css('border', 'white');
+                $todayUVIndex.text("No data.")
+                break;
+
             case (uVIndex < 3):
 
                 $todayUVIndex.css('background-color', 'green');
@@ -207,7 +219,7 @@ $(function () {
                 $todayUVIndex.css('background-color', 'orange');
                 $todayUVIndex.css('color', 'black');
                 break;
-                
+
             case (uVIndex < 11):
 
                 $todayUVIndex.css('background-color', 'red');
@@ -243,13 +255,15 @@ $(function () {
             url: url,
             type: "get"
         }).done(function (response) {
+            console.log("response: ", response)
             coordinates = {
                 lat: response[0].lat,
                 lon: response[0].lon
             }
             location = {
                 city: response[0].name,
-                state: response[0].state
+                state: response[0].state,
+                country: response[0].country
             }
         });
 
@@ -275,16 +289,27 @@ $(function () {
         let { coordinates, location } = await getCoordinates(cityName);
 
         let weather = await getWeather(coordinates.lat, coordinates.lon);
-
+        console.log("Weather data: ", weather)
         return { weather, location };
     }
 
-    const getSearchHistoryCard = (cityName, stateName) => {
+    const getSearchHistoryCard = (cityName, stateName, countryName) => {
 
+        // If there is a country, we will use it for searching
+        let locationSearch = cityName;
+
+        if (countryName) {
+            locationSearch += `, ${countryName}`
+        }
+
+        console.log("stateName: ", stateName);
+        console.log("countryName: ", countryName)
+
+        console.log(`$.{stateName || countryName}: ${stateName || countryName}`)
         return (
-            $.parseHTML(`<a href="" data-city="${cityName}"class="list-group-item list-group-item-action">
+            $.parseHTML(`<a href="" data-location-search="${locationSearch}"class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">${cityName}, ${stateName}</h5>
+                    <h5 class="mb-1">${cityName}, ${stateName || countryName}</h5>
                 </div>
             </a>`)
         )
@@ -296,10 +321,11 @@ $(function () {
     $searchHistoryContainer.on("click", "a", function (event) {
         event.preventDefault();
 
-        const city = $(this).data("city");
+        const location = $(this).data("location-search");
+        console.log("location to search from history: ", location)
 
         // Change input value to search history card text
-        $cityInput.val(city);
+        $cityInput.val(location);
 
         // Call handleSubmit to read input and re-search
         $searchForm.submit();

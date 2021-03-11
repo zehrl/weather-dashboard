@@ -1,11 +1,23 @@
 /* ----- Global ----- */
 
 
+/* ----- Jumbotron ----- */
+
+/* .jumbotron {
+
+} */
+
+/* ----- Main Content ----- */
+
+/* main .container {
+
+} */
+
 /* ----- Today's Forecast ----- */
 
 #todayUVIndex {
     border-radius: 0.3em;
-    border: rgba(0, 0, 0, 0.5) solid 1px;
+    border: rgba(0, 0, 0, 0.75) solid 1px;
     padding: .2em .5em;
 }
 
