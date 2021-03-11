@@ -6,8 +6,8 @@ $(function () {
     const $searchForm = $("#search-form");
     const $cityInput = $("#city-input");
 
-    // search history list items
-
+    // search history
+    $searchHistoryContainer = $("#search-history-container");
 
     // today's forecast
     const $todayCityName = $("#todayCityName"); // City Name span
@@ -74,7 +74,7 @@ $(function () {
         $cityInput.val("");
 
         // Get data
-        const { weather: { current }, location } = await getData(cityInput);
+        const { weather: { current, daily }, location } = await getData(cityInput);
 
         // Add to search history
         let searchHistory;
@@ -98,11 +98,12 @@ $(function () {
         );
 
         // Render search history
-
+        renderSearchHistory();
 
         // Render 5-day forecast
+        renderFiveDayForecast(daily);
 
-        
+
     }
 
     // Render 5-day forecast
@@ -151,8 +152,25 @@ $(function () {
 
         const searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
 
-        if (searchHistory) {
+        $searchHistoryContainer.empty();
+
+        if (searchHistory.length > 0) {
             console.log("searchHistory: ", searchHistory);
+
+            let $cards = $();
+
+            searchHistory.forEach(search => {
+                console.log("Card: ", getSearchHistoryCard(search.city, search.state))
+                $searchHistoryContainer.append(getSearchHistoryCard(search.city, search.state));
+
+                // $cards.push(getSearchHistoryCard(search.city, search.state))
+            });
+
+            // $searchHistoryContainer.append($cards);
+
+            console.log("cards: ", $cards);
+            console.log("cards container: ", $searchHistoryContainer)
+
         } else {
             console.log("No search history found.")
         }
@@ -187,9 +205,6 @@ $(function () {
         // URL: https://openweathermap.org/weather-conditions#How-to-get-icon-URL
 
     }
-
-    // Render 5-day forecast
-
 
     const getCoordinates = async (cityName) => {
 
@@ -245,9 +260,8 @@ $(function () {
 
     const getSearchHistoryCard = (cityName, stateName) => {
 
-
         return (
-            $.parseHTML(`<a href="#" class="list-group-item list-group-item-action active">
+            $.parseHTML(`<a href="" data-city="${cityName}"class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">${cityName}, ${stateName}</h5>
                 </div>
@@ -255,11 +269,24 @@ $(function () {
         )
     }
 
-// ----- Listeners -----
-$searchForm.submit((event) => handleFormSubmit(event))
-console.log($searchForm);
+    // ----- Listeners -----
+    $searchForm.submit((event) => handleFormSubmit(event))
 
-// ----- Initialize -----
-handleInit();
+    $searchHistoryContainer.on("click", "a", function (event) {
+        event.preventDefault();
+
+        const city = $(this).data("city");
+
+        // Change input value to search history card text
+        $cityInput.val(city);
+        console.log("City clicked: ", city);
+
+        // Call handleSubmit to read input and research
+        $searchForm.submit();
+
+    })
+
+    // ----- Initialize -----
+    handleInit();
 
 })
