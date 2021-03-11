@@ -74,7 +74,7 @@ $(function () {
         let searchHistory;
 
         searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
-        
+
         // Filter any duplicates
         searchHistory = searchHistory.filter(entry => {
             return (entry.city !== location.city || entry.state !== location.state)
@@ -185,6 +185,45 @@ $(function () {
 
         // update uv index
         $todayUVIndex.text(uVIndex);
+
+        // Determine UV Index severity and change background accordingly
+        $todayUVIndex.css('color', 'white');
+        
+        switch (true) {
+            case (uVIndex < 3):
+
+                $todayUVIndex.css('background-color', 'green');
+                $todayUVIndex.css('color', 'white');
+                break;
+
+            case (uVIndex < 6):
+
+                $todayUVIndex.css('background-color', 'yellow');
+                $todayUVIndex.css('color', 'black');
+                break;
+
+            case (uVIndex < 8):
+
+                $todayUVIndex.css('background-color', 'orange');
+                $todayUVIndex.css('color', 'black');
+                break;
+                
+            case (uVIndex < 11):
+
+                $todayUVIndex.css('background-color', 'red');
+                $todayUVIndex.css('color', 'white');
+                break;
+
+            case (uVIndex > 11):
+
+                $todayUVIndex.css('background-color', 'purple');
+                $todayUVIndex.css('color', 'white');
+                break;
+
+            default:
+                console.log("No UV Index conditions detected.");
+                break;
+        }
 
         // update icon
         // URL: https://openweathermap.org/weather-conditions#How-to-get-icon-URL
