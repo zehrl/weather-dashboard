@@ -242,7 +242,7 @@ $(function () {
 
     const getCoordinates = async (cityName) => {
 
-        const url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`
+        const url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`
         let coordinates = { lat: "N/A", lon: "N/A" };
         let location = { city: "N/A", state: "N/A" };
 
