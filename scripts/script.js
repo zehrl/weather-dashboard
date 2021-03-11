@@ -28,7 +28,6 @@ $(function () {
 
         // Auto load Seattle weather
         const data = await getData("Seattle");
-        console.log("handleInit data: ", data);
 
         // Initialize search history if there isn't any
         if (!JSON.parse(localStorage.getItem('searchHistory'))) {
@@ -62,11 +61,8 @@ $(function () {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        console.log("Form submitted!");
-
         // Pull data from search value
         const cityInput = $cityInput.val().trim();
-        console.log("city input: ", cityInput);
 
         // Clear Search Input
         $cityInput.val("");
@@ -84,10 +80,8 @@ $(function () {
             return (entry.city !== location.city || entry.state !== location.state)
         })
 
-        console.log("searchHistory before: ", searchHistory)
         searchHistory.unshift({ city: location.city, state: location.state });
 
-        console.log("searchHistory after: ", searchHistory)
         localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 
         // Render Forecast
@@ -162,7 +156,6 @@ $(function () {
             let $cards = $();
 
             searchHistory.forEach(search => {
-                console.log("Card: ", getSearchHistoryCard(search.city, search.state))
                 $searchHistoryContainer.append(getSearchHistoryCard(search.city, search.state));
             });
         } else {
@@ -211,7 +204,6 @@ $(function () {
             url: url,
             type: "get"
         }).done(function (response) {
-            console.log("getCoordinates: ", response)
             coordinates = {
                 lat: response[0].lat,
                 lon: response[0].lon
@@ -242,10 +234,8 @@ $(function () {
 
     const getData = async (cityName) => {
         let { coordinates, location } = await getCoordinates(cityName);
-        console.log("Await coordinates: ", coordinates);
 
         let weather = await getWeather(coordinates.lat, coordinates.lon);
-        console.log("Await weather: ", weather);
 
         return { weather, location };
     }
@@ -271,7 +261,6 @@ $(function () {
 
         // Change input value to search history card text
         $cityInput.val(city);
-        console.log("City clicked: ", city);
 
         // Call handleSubmit to read input and re-search
         $searchForm.submit();
