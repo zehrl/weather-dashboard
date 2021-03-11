@@ -207,30 +207,35 @@ $(function () {
 
                 $todayUVIndex.css('background-color', 'green');
                 $todayUVIndex.css('color', 'white');
+                $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
                 break;
 
             case (uVIndex < 6):
 
                 $todayUVIndex.css('background-color', 'yellow');
                 $todayUVIndex.css('color', 'black');
+                $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
                 break;
 
             case (uVIndex < 8):
 
                 $todayUVIndex.css('background-color', 'orange');
                 $todayUVIndex.css('color', 'black');
+                $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
                 break;
 
             case (uVIndex < 11):
 
                 $todayUVIndex.css('background-color', 'red');
                 $todayUVIndex.css('color', 'white');
+                $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
                 break;
 
             case (uVIndex > 11):
 
                 $todayUVIndex.css('background-color', 'purple');
                 $todayUVIndex.css('color', 'white');
+                $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
                 break;
 
             default:
