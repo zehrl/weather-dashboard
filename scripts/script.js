@@ -197,45 +197,28 @@ $(function () {
         console.log("uVIndex: ", uVIndex)
         switch (true) {
             case (uVIndex === 0):
-                $todayUVIndex.css('background-color', 'white');
-                $todayUVIndex.css('color', 'black');
-                $todayUVIndex.css('border', 'white');
+                updateUVIndexStyle("white", "black", false);
                 $todayUVIndex.text("No data.")
                 break;
 
             case (uVIndex < 3):
-
-                $todayUVIndex.css('background-color', 'green');
-                $todayUVIndex.css('color', 'white');
-                $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
+                updateUVIndexStyle("green", "white", true);
                 break;
 
             case (uVIndex < 6):
-
-                $todayUVIndex.css('background-color', 'yellow');
-                $todayUVIndex.css('color', 'black');
-                $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
+                updateUVIndexStyle("yellow", "black", true);
                 break;
 
             case (uVIndex < 8):
-
-                $todayUVIndex.css('background-color', 'orange');
-                $todayUVIndex.css('color', 'black');
-                $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
+                updateUVIndexStyle("orange", "black", true);
                 break;
 
             case (uVIndex < 11):
-
-                $todayUVIndex.css('background-color', 'red');
-                $todayUVIndex.css('color', 'white');
-                $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
+                updateUVIndexStyle("red", "white", true);
                 break;
 
             case (uVIndex > 11):
-
-                $todayUVIndex.css('background-color', 'purple');
-                $todayUVIndex.css('color', 'white');
-                $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
+                updateUVIndexStyle("purple", "white", true);
                 break;
 
             default:
@@ -243,9 +226,16 @@ $(function () {
                 break;
         }
 
-        // update icon
-        // URL: https://openweathermap.org/weather-conditions#How-to-get-icon-URL
+    }
 
+    const updateUVIndexStyle = (backgroundColor, fontColor, borderBoolean) => {
+        $todayUVIndex.css('background-color', backgroundColor);
+        $todayUVIndex.css('color', fontColor);
+        if (borderBoolean) {
+            $todayUVIndex.css('border', 'rgba(0, 0, 0, 0.75) solid 1px');
+        } else {
+            $todayUVIndex.css('border', 'white');
+        }
     }
 
     // ----- API Calls & handling -----
